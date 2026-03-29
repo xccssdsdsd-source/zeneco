@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meble Zeneco – Meble na zamówienie · Polska robota</title>
+
+    <!-- Google Fonts: Cormorant Garamond (elegancki serif) + Jost (nowoczesny sans-serif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS RESET & CUSTOM PROPERTIES
+           ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #F5F0E8;
+            --charcoal: #1C1A17;
+            --gold: #B8902A;
+            --gold-lt: #D4AE55;
+            --warm-mid: #E8E0D0;
+            --duration-standard: 0.3s;
+            --duration-long: 0.6s;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-lt);
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url("logo.png.jpg");
+            background-size: 100px 100px;
+            background-repeat: no-repeat;
+            background-position: center 15%;
+            transform: scale(1.04);
+            transition: transform 0.1s linear;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(244,239,230,0.55) 0%,
+                rgba(244,239,230,0.25) 40%,
+                rgba(30,27,23,0.45) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .logo-lockup {
+            animation: fadeUp 1s ease both 0.3s;
+        }
+
+        .logo-eyebrow {
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            font-size: 0.62rem;
+            letter-spacing: 0.55em;
+            color: rgba(244,239,230,0.75);
+            margin-bottom: 6px;
+        }
+
+        .logo-wordmark {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            font-size: clamp(4rem, 10vw, 7rem);
+            line-height: 1;
+            letter-spacing: 0.05em;
+            text-shadow: 0 4px 32px rgba(30,27,23,0.3);
+        }
+
+        .zen { color: var(--gold); }
+        .eco { color: #F4EFE6; }
+
+        .logo-swoosh {
+            width: 160px;
+            display: block;
+            margin: 8px auto 0;
+            filter: drop-shadow(0 2px 8px rgba(30,27,23,0.2));
+        }
+
+        .hero-tagline {
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            font-size: 0.68rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: rgba(244,239,230,0.7);
+            margin-top: 36px;
+            animation: fadeUp 1s ease both 0.7s;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: -45vh;
+            font-size: 1.1rem;
+            color: var(--gold);
+            animation: bounce 2.5s ease infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(8px); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+
+        .about {
+            padding: 120px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about__image {
+            position: relative;
+        }
+
+        .about__image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transform: rotate(-1.5deg);
+            box-shadow: 0 16px 48px rgba(28, 26, 23, 0.12);
+            filter: drop-shadow(0 8px 20px rgba(184, 144, 42, 0.08));
+        }
+
+        .about__content {
+            padding-right: 40px;
+        }
+
+        .about__label {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .about__title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            line-height: 1.2;
+            margin-bottom: 32px;
+            white-space: pre-line;
+        }
+
+        .about__text {
+            font-family: 'Jost', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(28, 26, 23, 0.75);
+            line-height: 1.8;
+            margin-bottom: 48px;
+            white-space: pre-line;
+        }
+
+        .about__divider {
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(to right, var(--gold), transparent);
+            margin: 0;
+        }
+
+        /* ============================================
+           GALLERY SECTION
+           ============================================ */
+
+        .gallery {
+            background-color: var(--charcoal);
+            padding-top: 80px;
+            padding-bottom: 0;
+        }
+
+        .gallery__title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--cream);
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: 0.05em;
+        }
+
+        .gallery__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 340px;
+            gap: 3px;
+            max-width: 100%;
+        }
+
+        .gallery__item {
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .gallery__item:nth-child(1) { grid-column: 1; grid-row: 1; }
+        .gallery__item:nth-child(2) { grid-column: 2; grid-row: 1; }
+        .gallery__item:nth-child(3) { grid-column: 3; grid-row: 1; }
+
+        .gallery__item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--duration-long) ease;
+        }
+
+        .gallery__item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: var(--gold);
+            opacity: 0;
+            transition: opacity var(--duration-long) ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .gallery__item:hover img {
+            transform: scale(1.02);
+        }
+
+        .gallery__item:hover::before {
+            opacity: 0.15;
+        }
+
+        /* ============================================
+           CONTACT SECTION
+           ============================================ */
+
+        .contact {
+            background-color: var(--warm-mid);
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .contact__label {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .contact__title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            margin-bottom: 48px;
+            letter-spacing: 0.02em;
+        }
+
+        .contact__buttons {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 14px 32px;
+            border-radius: 0;
+            border: none;
+            cursor: pointer;
+            transition: all var(--duration-standard) ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .btn--outline {
+            border: 1px solid var(--gold);
+            color: var(--charcoal);
+            background-color: transparent;
+        }
+
+        .btn--outline:hover {
+            background-color: var(--gold);
+            color: white;
+        }
+
+        .btn--solid {
+            background-color: var(--gold);
+            color: white;
+            border: 1px solid var(--gold);
+        }
+
+        .btn--solid:hover {
+            background-color: var(--charcoal);
+            border-color: var(--charcoal);
+        }
+
+        .btn__icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+
+        .footer {
+            background-color: var(--charcoal);
+            padding: 32px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer__text {
+            font-family: 'Jost', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 300;
+            color: rgba(245, 240, 232, 0.4);
+            letter-spacing: 0.05em;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleX {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in-left {
+            animation: slideInFromLeft 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .fade-in-right {
+            animation: slideInFromRight 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        @media (max-width: 768px) {
+            .hero-tagline {
+                font-size: 0.58rem;
+            }
+
+            .about__grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .about__image img {
+                transform: rotate(0deg);
+            }
+
+            .about__content {
+                padding-right: 0;
+            }
+
+            .about__title {
+                font-size: 2.2rem;
+            }
+
+            .about__text {
+                font-size: 0.95rem;
+            }
+
+            .gallery__grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 200px 200px;
+            }
+
+            .gallery__item:nth-child(3) {
+                grid-column: span 2;
+            }
+
+            .gallery__title {
+                font-size: 2rem;
+                margin-bottom: 48px;
+            }
+
+            .contact__title {
+                font-size: 2.2rem;
+            }
+
+            .contact__buttons {
+                gap: 16px;
+            }
+
+            .btn {
+                font-size: 0.85rem;
+                padding: 12px 24px;
+            }
+
+            .about {
+                padding: 80px 5%;
+            }
+
+            .gallery {
+                padding-top: 60px;
+            }
+
+            .contact {
+                padding: 80px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="logo-lockup">
+                <div class="logo-eyebrow">— &nbsp; M E B L E &nbsp; —</div>
+                <div class="logo-wordmark">
+                    <span class="zen">ZEN</span><span class="eco">ECO</span>
+                </div>
+                <svg class="logo-swoosh" viewBox="0 0 160 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 14 Q80 2 150 14" stroke="#B8902A" stroke-width="1.4"
+                          fill="none" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <p class="hero-tagline">
+                Meble na zamówienie &ensp;·&ensp; Polska robota &ensp;·&ensp; Najwyższa jakość
+            </p>
+            <div class="scroll-hint">↓</div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ABOUT SECTION
+         ============================================ -->
+    <section class="about" id="about">
+        <div class="about__grid">
+            <div class="about__image">
+                <img src="ImageDownloader_www.instagram.com_640410828_17857399278612524_8394483469457325232_n.jpg" alt="Warsztat i produkcja mebli Zeneco" onerror="this.closest('.about__image').style.display='none'">
+            </div>
+            <div class="about__content">
+                <span class="about__label">O nas</span>
+                <h2 class="about__title">Tworzymy meble,
+którzy zostają na pokolenia</h2>
+                <p class="about__text">🪑 Sprzedaż mebli domowych i ogrodowych na zamówienie.
+🇵🇱 Produkowane własnoręcznie w Polsce z najwyższej jakości materiałów.</p>
+                <div class="about__divider"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         GALLERY SECTION
+         ============================================ -->
+    <section class="gallery" id="gallery">
+        <h2 class="gallery__title">Nasze realizacje</h2>
+        <div class="gallery__grid">
+            <div class="gallery__item">
+                <img src="ImageDownloader_www.instagram.com_639883346_17857405146612524_7334770461471856373_n.jpg" alt="Realizacja 1">
+            </div>
+            <div class="gallery__item">
+                <img src="ImageDownloader_www.instagram.com_639806352_17857404990612524_5965927394717186544_n.jpg" alt="Realizacja 2">
+            </div>
+            <div class="gallery__item">
+                <img src="ImageDownloader_www.instagram.com_610873387_17850592221612524_2363748685826660159_n.jpg" alt="Realizacja 3">
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT SECTION
+         ============================================ -->
+    <section class="contact" id="contact">
+        <span class="contact__label">Skontaktuj się</span>
+        <h2 class="contact__title">Zapytaj o swój mebel</h2>
+        <div class="contact__buttons">
+            <a href="https://instagram.com/meble.zeneco" target="_blank" class="btn btn--outline">
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <circle cx="17.5" cy="6.5" r="1.5"></circle>
+                </svg>
+                @meble.zeneco
+            </a>
+            <a href="mailto:MAIL_PLACEHOLDER" class="btn btn--solid">
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="m22 7-10 5L2 7"></path>
+                </svg>
+                Wyślij wiadomość
+            </a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <p class="footer__text">© 2025 Meble Zeneco · Polska, produkcja na zamówienie</p>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT: INTERSECTION OBSERVER
+         ============================================ -->
+    <script>
+        /**
+         * Intersection Observer: Animuje elementy gdy wchodzą w viewport
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.animation = entry.target.classList.contains('fade-in-left')
+                            ? 'slideInFromLeft 0.8s ease-out forwards'
+                            : 'slideInFromRight 0.8s ease-out forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Parallax na hero
+            window.addEventListener('scroll', () => {
+                const bg = document.querySelector('.hero-bg');
+                if (bg) {
+                    const y = window.scrollY * 0.3;
+                    bg.style.transform = `scale(1.04) translateY(${y}px)`;
+                }
+            });
+
+            // Obserwuj elementy w sekcji "O nas"
+            const aboutImage = document.querySelector('.about__image');
+            const aboutContent = document.querySelector('.about__content');
+
+            if (aboutImage) {
+                aboutImage.classList.add('fade-in-left');
+                observer.observe(aboutImage);
+            }
+
+            if (aboutContent) {
+                aboutContent.classList.add('fade-in-right');
+                observer.observe(aboutContent);
+            }
+        });
+    </script>
+</body>
+</html>
