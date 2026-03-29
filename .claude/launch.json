@@ -4,8 +4,9 @@
     {
       "name": "Static HTTP Server",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8000"],
-      "port": 8000
+      "runtimeArgs": ["-c", "import http.server, os; http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler, port=int(os.environ.get('PORT', 8080)))"],
+      "port": 8080,
+      "autoPort": true
     }
   ]
 }

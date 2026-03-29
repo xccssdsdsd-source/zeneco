@@ -153,6 +153,66 @@
       color: var(--accent);
     }
 
+    /* ── MOBILE MENU ───────────────────────────────────────── */
+    .nav__burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      z-index: 600;
+    }
+    .nav__burger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .nav__burger.active span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .nav__burger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav__burger.active span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    .nav__mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 499;
+      background: rgba(245, 240, 235, 0.97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .nav__mobile-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .nav__mobile-overlay a {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+    .nav__mobile-overlay a:hover {
+      color: var(--accent);
+    }
+
 
     /* ══════════════════════════════════════════════════════════
        HERO
@@ -316,36 +376,17 @@
     }
     .about__heading em { font-style: italic; color: var(--accent); }
 
-    /* Blurred placeholder text */
-    .blurred-block {
-      position: relative;
+    /* About text blocks */
+    .about__paragraph {
       margin-bottom: 0.6rem;
     }
-    .blurred-block p {
+    .about__paragraph p {
       font-family: 'DM Sans', sans-serif;
       font-weight: 300;
       font-size: 0.88rem;
       line-height: 1.9;
       color: var(--text);
-      opacity: 0.55;
-      filter: blur(5px);
-      user-select: none;
-      -webkit-user-select: none;
-    }
-    .blurred-block__label {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      font-size: 0.72rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.5;
-      pointer-events: none;
+      opacity: 0.65;
     }
 
     /* Feature grid 2×2 */
@@ -697,8 +738,6 @@
       border-color: var(--accent);
     }
 
-    .contact__img-wrap { display: none; }
-    .contact__img-frame { display: none; }
 
 
     /* ══════════════════════════════════════════════════════════
@@ -710,7 +749,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
     }
     .footer__logo img {
@@ -733,6 +772,7 @@
     ══════════════════════════════════════════════════════════ */
     @media (max-width: 768px) {
       .nav__links { display: none; }
+      .nav__burger { display: flex; }
 
       .hero__heading { font-size: clamp(2.5rem, 12vw, 4rem); }
       .hero__watermark { font-size: clamp(5rem, 25vw, 10rem); }
@@ -805,7 +845,17 @@
       <li><a href="#gallery">Realizacje</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
+    <button class="nav__burger" id="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="nav__mobile-overlay" id="mobile-menu">
+    <a href="#home">Strona główna</a>
+    <a href="#about">O nas</a>
+    <a href="#gallery">Realizacje</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
 
 
   <!-- ═══ HERO ═════════════════════════════════════════════ -->
@@ -847,19 +897,16 @@
           <p class="about__eyebrow">O nas</p>
           <h2 class="about__heading">Rzemiosło w <em>każdym</em> detalu.</h2>
 
-          <div class="blurred-block">
+          <div class="about__paragraph">
             <p>Zeneco to rodzinna pracownia meblarska działająca w sercu Polski. Od ponad dekady tworzymy meble, które łączą tradycyjne rzemiosło z nowoczesnym designem. Każdy projekt zaczyna się od rozmowy z klientem i kończy na meblu, który służy przez lata.</p>
-            <span class="blurred-block__label">[Twój tekst tutaj]</span>
           </div>
 
-          <div class="blurred-block">
+          <div class="about__paragraph">
             <p>Używamy wyłącznie certyfikowanych materiałów — litego drewna dębowego, jesionowego i orzechowego. Każda deska dobierana jest ręcznie pod względem słojów i barwy, by mebel był nie tylko trwały, ale i piękny.</p>
-            <span class="blurred-block__label">[Twój tekst tutaj]</span>
           </div>
 
-          <div class="blurred-block">
+          <div class="about__paragraph">
             <p>Projekt, wycena i realizacja — wszystko w jednym miejscu. Skontaktuj się z nami, a wspólnie stworzymy mebel szyty na miarę Twojego domu.</p>
-            <span class="blurred-block__label">[Twój tekst tutaj]</span>
           </div>
 
           <div class="about__features">
@@ -885,7 +932,8 @@
         <div class="about__img-wrap reveal">
           <img
             src="ImageDownloader_www.instagram.com_639883346_17857405146612524_7334770461471856373_n.jpg"
-            alt="Realizacja Zeneco"
+            alt="Ręcznie wykonany mebel z litego drewna w pracowni Zeneco"
+            loading="lazy"
           >
         </div>
 
@@ -910,19 +958,43 @@
         <div class="gallery__item gallery__item--large reveal">
           <img
             src="ImageDownloader_www.instagram.com_639806352_17857404990612524_5965927394717186544_n.jpg"
-            alt="Realizacja Zeneco"
+            alt="Meble na wymiar - dębowy stół do jadalni"
+            loading="lazy"
           >
         </div>
         <div class="gallery__item reveal">
           <img
             src="ImageDownloader_www.instagram.com_639462184_17857091811612524_6434809984105121988_n.jpg"
-            alt="Realizacja Zeneco"
+            alt="Szafka z litego drewna orzechowego"
+            loading="lazy"
           >
         </div>
         <div class="gallery__item reveal">
           <img
             src="ImageDownloader_www.instagram.com_611299226_17850625596612524_5913342378821753091_n.jpg"
-            alt="Realizacja Zeneco"
+            alt="Komoda jesionowa - realizacja na zamówienie"
+            loading="lazy"
+          >
+        </div>
+        <div class="gallery__item reveal">
+          <img
+            src="ImageDownloader_www.instagram.com_610873387_17850592221612524_2363748685826660159_n.jpg"
+            alt="Detale wykończenia mebli Zeneco"
+            loading="lazy"
+          >
+        </div>
+        <div class="gallery__item reveal">
+          <img
+            src="ImageDownloader_www.instagram.com_640410828_17857399278612524_8394483469457325232_n.jpg"
+            alt="Pracownia meblarska Zeneco"
+            loading="lazy"
+          >
+        </div>
+        <div class="gallery__item reveal">
+          <img
+            src="ImageDownloader_www.instagram.com_639883346_17857405146612524_7334770461471856373_n.jpg"
+            alt="Mebel z naturalnego drewna"
+            loading="lazy"
           >
         </div>
       </div>
@@ -1000,14 +1072,6 @@
 
       </div>
 
-      <!-- Image preserved in markup, hidden by layout -->
-      <div class="contact__img-wrap">
-        <img
-          src="ImageDownloader_www.instagram.com_610873387_17850592221612524_2363748685826660159_n.jpg"
-          alt="Meble Zeneco"
-        >
-        <div class="contact__img-frame"></div>
-      </div>
     </div>
   </section>
 
@@ -1018,7 +1082,7 @@
       <img src="logo.png.jpg" alt="Meble Zeneco">
     </a>
     <span class="footer__tagline">Meble na zamówienie · Polska robota</span>
-    <span class="footer__copy">© 2025 Meble Zeneco</span>
+    <span class="footer__copy">© 2026 Meble Zeneco</span>
   </footer>
 
 
@@ -1046,6 +1110,28 @@
     document.querySelectorAll('.gallery__item').forEach((el, i) => {
       el.style.transitionDelay = `${i * 100}ms`;
     });
+
+    // Mobile menu toggle
+    const burger = document.getElementById('nav-burger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (burger && mobileMenu) {
+      burger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        burger.classList.toggle('active');
+        burger.setAttribute('aria-expanded', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('open');
+          burger.classList.remove('active');
+          burger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+    }
 
     // Contact form success state
     const contactForm = document.getElementById('contact-form');
