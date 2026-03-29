@@ -6,35 +6,34 @@
   <title>Meble Zeneco – Meble na zamówienie · Polska robota</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+
   <style>
 
-    /* ─── RESET ─────────────────────────────────────────── */
+    /* ── RESET ─────────────────────────────────────────────── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 16px; }
-    img { display: block; max-width: 100%; }
-    a { text-decoration: none; color: inherit; }
-    hr { border: none; }
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    img  { display: block; max-width: 100%; }
+    a    { text-decoration: none; color: inherit; }
+    ul   { list-style: none; }
 
-    /* ─── TOKENS ─────────────────────────────────────────── */
+    /* ── TOKENS ────────────────────────────────────────────── */
     :root {
-      --bg:     #F7F2EA;
-      --bg2:    #EFE8DA;
-      --dark:   #1A1208;
-      --brown:  #3D2B1A;
-      --gold:   #A07840;
-      --muted:  #8C7B6B;
-      --border: rgba(160,120,64,0.2);
-      --t-fast: 0.3s ease;
-      --t-med:  0.7s ease;
+      --bg:     #F7F1E8;
+      --bg2:    #EDE5D6;
+      --dark:   #18100A;
+      --gold:   #9E7A3F;
+      --muted:  #8A796A;
+      --border: rgba(158,122,63,0.22);
     }
 
-    /* ─── SCROLLBAR ──────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 5px; }
+    /* ── SCROLLBAR ─────────────────────────────────────────── */
+    ::-webkit-scrollbar       { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 0; }
+    ::-webkit-scrollbar-thumb { background: rgba(158,122,63,0.4); border-radius: 0; }
 
-    /* ─── BASE ───────────────────────────────────────────── */
+    /* ── BASE ──────────────────────────────────────────────── */
     body {
       font-family: 'Jost', sans-serif;
       font-weight: 300;
@@ -43,343 +42,375 @@
       line-height: 1.9;
     }
 
-    /* ─── SECTION DIVIDER ────────────────────────────────── */
-    .divider {
-      width: 100%;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.35;
+    /* ── KEYFRAMES ─────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.0); }
+      to   { transform: scale(1.06); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 0.8; }
     }
 
-    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    /* ── SCROLL REVEAL ─────────────────────────────────────── */
     .reveal {
       opacity: 0;
-      transform: translateY(16px);
-      transition: opacity var(--t-med), transform var(--t-med);
+      transform: translateY(20px);
+      transition: opacity 0.75s cubic-bezier(.16,1,.3,1),
+                  transform 0.75s cubic-bezier(.16,1,.3,1);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-d1 { transition-delay: 0.1s; }
-    .reveal-d2 { transition-delay: 0.22s; }
-    .reveal-d3 { transition-delay: 0.36s; }
-    .reveal-d4 { transition-delay: 0.5s; }
+    .reveal.visible        { opacity: 1; transform: none; }
+    .reveal-d1.visible     { transition-delay: 0.1s; }
+    .reveal-d2.visible     { transition-delay: 0.22s; }
+    .reveal-d3.visible     { transition-delay: 0.36s; }
+    .reveal-d4.visible     { transition-delay: 0.52s; }
 
-    /* ═══════════════════════════════════════════════════════
-       1. NAV
-    ═══════════════════════════════════════════════════════ */
+    /* ── DIVIDER ───────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0 60px;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       NAV
+    ══════════════════════════════════════════════════════════ */
     .nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 5%;
-      height: 68px;
-      background: rgba(247,242,234,0.9);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      padding: 20px 60px;
+      background: rgba(247,241,232,0.93);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid transparent;
-      transition: border-color var(--t-fast);
+      transition: border-color 0.35s ease;
     }
     .nav.scrolled {
-      border-bottom-color: rgba(160,120,64,0.35);
+      border-bottom-color: var(--border);
     }
     .nav__logo img {
-      height: 36px;
-      width: auto;
-      filter: saturate(0.85);
+      height: 38px;
     }
     .nav__links {
       display: flex;
-      gap: 36px;
-      list-style: none;
+      gap: 40px;
     }
     .nav__links a {
       font-family: 'Jost', sans-serif;
       font-weight: 200;
-      font-size: 0.64rem;
-      letter-spacing: 0.2em;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--brown);
-      transition: color var(--t-fast);
+      color: var(--dark);
+      opacity: 0.6;
+      transition: opacity 0.3s, color 0.3s;
     }
-    .nav__links a:hover { color: var(--gold); }
+    .nav__links a:hover { opacity: 1; color: var(--gold); }
 
-    /* ═══════════════════════════════════════════════════════
-       2. HERO
-    ═══════════════════════════════════════════════════════ */
+
+    /* ══════════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════════ */
     .hero {
       position: relative;
       height: 100vh;
-      min-height: 640px;
+      min-height: 600px;
       overflow: hidden;
     }
 
-    /* Full-cover background image */
+    /* Background image — slow zoom */
     .hero__bg {
       position: absolute;
       inset: 0;
-      background-image: url("ImageDownloader_www.instagram.com_640410828_17857399278612524_8394483469457325232_n.jpg");
-      background-size: cover;
-      background-position: center;
-      filter: saturate(0.85);
-      transform: scale(1.05);
-      transition: transform 0.12s linear;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: saturate(0.75) brightness(0.88);
+      animation: heroZoom 14s ease-out forwards;
     }
 
-    /* Warm overlay — left opaque fading right */
+    /* Warm gradient overlay, heaviest on left */
     .hero__overlay {
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        to right,
-        rgba(247,242,234,0.92) 0%,
-        rgba(247,242,234,0.60) 50%,
-        rgba(247,242,234,0.10) 100%
+        105deg,
+        rgba(247,241,232,0.95) 0%,
+        rgba(247,241,232,0.75) 40%,
+        rgba(247,241,232,0.15) 100%
       );
     }
 
-    .hero__inner {
+    /* Text content */
+    .hero__content {
       position: relative;
       z-index: 2;
       height: 100%;
+      padding: 0 60px;
+      padding-top: 88px;   /* nav height offset */
       display: flex;
-      align-items: center;
-      padding: 0 5%;
-      padding-top: 68px; /* nav offset */
-    }
-
-    .hero__text {
-      max-width: 600px;
-      /* Load animation */
-      animation: heroLoad 1s ease both 0.15s;
-    }
-
-    @keyframes heroLoad {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+      flex-direction: column;
+      justify-content: center;
+      max-width: 780px;
     }
 
     .hero__eyebrow {
       font-family: 'Jost', sans-serif;
       font-weight: 200;
-      font-size: 0.58rem;
-      letter-spacing: 0.28em;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.2s forwards;
     }
 
     .hero__heading {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(4.5rem, 9vw, 9rem);
+      font-size: clamp(3.8rem, 8vw, 7.5rem);
       line-height: 0.92;
       color: var(--dark);
-      margin-bottom: 48px;
-      letter-spacing: -0.01em;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
     }
-
-    .hero__heading em {
-      font-style: italic;
-      color: var(--brown);
-    }
-
-    .hero__heading span {
-      display: block;
-    }
+    .hero__heading span { display: block; }
+    .hero__heading em   { font-style: italic; color: var(--gold); }
 
     .hero__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+      display: inline-block;
+      align-self: flex-start;
       font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 0.62rem;
-      letter-spacing: 0.22em;
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
+      padding: 14px 32px;
       border: 1px solid var(--gold);
-      padding: 14px 36px;
-      border-radius: 0;
       background: transparent;
+      color: var(--gold);
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: color var(--t-fast);
+      border-radius: 0;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    .hero__cta::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--gold);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--t-fast);
-      z-index: -1;
-    }
-    .hero__cta:hover { color: var(--bg); }
-    .hero__cta:hover::after { transform: scaleX(1); }
+    .hero__cta:hover { background: var(--gold); color: var(--bg); }
 
-    /* Bottom divider inside hero */
-    .hero__divider {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.4;
-    }
-
-    /* Scroll arrow */
+    /* Bottom scroll hint */
     .hero__scroll {
       position: absolute;
-      bottom: 32px;
-      right: 5%;
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 0.58rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      animation: pulse 2.5s ease infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.6; transform: translateY(0); }
-      50%       { opacity: 1;   transform: translateY(6px); }
-    }
-
-    /* ═══════════════════════════════════════════════════════
-       3. ABOUT
-    ═══════════════════════════════════════════════════════ */
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 600px;
-    }
-
-    .about__left {
-      padding: 100px 6% 100px 5%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .about__eyebrow {
+      bottom: 40px;
+      left: 60px;
+      z-index: 2;
       font-family: 'Jost', sans-serif;
       font-weight: 200;
       font-size: 0.58rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero__scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: pulse 2s ease infinite;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       ABOUT
+    ══════════════════════════════════════════════════════════ */
+    .about {
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    /* Left column */
+    .about__eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 0;
+    }
+    .about__eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
     }
 
     .about__heading {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.4rem, 3.8vw, 3.8rem);
-      line-height: 1.12;
+      font-size: 2.8rem;
+      line-height: 1.1;
       color: var(--dark);
-      margin-bottom: 32px;
+      margin: 18px 0 32px;
     }
+    .about__heading em { font-style: italic; color: var(--gold); }
 
-    .about__heading em {
-      font-style: italic;
-      color: var(--gold);
+    /* Blurred placeholder block */
+    .blurred-block {
+      position: relative;
+      margin-bottom: 10px;
     }
-
-    .about__body {
+    .blurred-block p {
       font-family: 'Jost', sans-serif;
       font-weight: 300;
-      font-size: 0.95rem;
+      font-size: 0.8rem;
       line-height: 1.9;
       color: var(--muted);
-      max-width: 460px;
-      margin-bottom: 40px;
+      filter: blur(5px);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .blurred-block__label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.5;
+      pointer-events: none;
     }
 
-    .about__rule {
-      width: 56px;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.6;
+    /* Feature grid 2×2 */
+    .about__features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .about__feature {
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      border-radius: 0;
+    }
+    .about__feature-title {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--dark);
+    }
+    .about__feature-desc {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.62rem;
+      color: var(--muted);
+      margin-top: 4px;
     }
 
-    .about__right {
+    /* Right column image */
+    .about__img-wrap {
       position: relative;
-      overflow: hidden;
+      align-self: center;
+      box-shadow: 8px 8px 0 0 rgba(158,122,63,0.12);
     }
-
-    .about__right img {
+    .about__img-wrap img {
       width: 100%;
-      height: 100%;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
-      filter: saturate(0.85);
-      transition: filter var(--t-med);
-      /* Gold frame via inset box-shadow */
-      box-shadow: inset 0 0 0 8px var(--bg), inset 0 0 0 9px rgba(160,120,64,0.35);
+      filter: saturate(0.8);
+      display: block;
+    }
+    .about__img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(158,122,63,0.3);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    .about__right:hover img {
-      filter: saturate(0.95);
-    }
 
-    /* ═══════════════════════════════════════════════════════
-       4. GALLERY
-    ═══════════════════════════════════════════════════════ */
+    /* ══════════════════════════════════════════════════════════
+       GALLERY
+    ══════════════════════════════════════════════════════════ */
     .gallery {
-      background: var(--bg2);
-      padding: 100px 0 0;
+      padding: 100px 60px;
     }
 
     .gallery__header {
-      text-align: center;
-      padding: 0 5% 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
     }
-
     .gallery__heading {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      line-height: 1;
       color: var(--dark);
-      letter-spacing: 0.04em;
+    }
+    .gallery__heading em { font-style: italic; color: var(--gold); }
+
+    .gallery__label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.62rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding-bottom: 6px;
     }
 
-    .gallery__heading em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
+    /* Grid: 3 cols, single row */
     .gallery__grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 360px 360px;
-      gap: 4px;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      grid-template-rows: 480px;
+      gap: 3px;
     }
-
-    /* Row 1: 3 images */
     .gallery__item {
       position: relative;
       overflow: hidden;
-      background: var(--bg2);
     }
-
     .gallery__item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: saturate(0.85);
-      transition: transform 0.6s ease, filter 0.6s ease;
+      filter: saturate(0.78);
+      transition: transform 0.8s ease, filter 0.8s ease;
+      display: block;
     }
-
     .gallery__item::after {
       content: '';
       position: absolute;
@@ -387,383 +418,484 @@
       background: rgba(26,18,8,0.35);
       opacity: 0;
       transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .gallery__item:hover img   { transform: scale(1.04); filter: saturate(0.9); }
+    .gallery__item:hover::after { opacity: 1; }
+
+    /* Large cell (kept for compat) */
+    .gallery__item--large {
+      /* single row — no span needed */
     }
 
-    .gallery__item:hover img {
-      transform: scale(1.05);
-      filter: saturate(0.75);
-    }
-
-    .gallery__item:hover::after {
-      opacity: 1;
-    }
-
-    /* Row 2: 2 images + 1 placeholder */
+    /* Placeholder cell */
     .gallery__item--placeholder {
+      background: var(--bg2);
+      border: 1px dashed rgba(158,122,63,0.3);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      border: 1px dashed rgba(160,120,64,0.45);
-      background: transparent;
+      gap: 10px;
+      cursor: default;
     }
-
     .gallery__item--placeholder::after { display: none; }
 
-    .gallery__placeholder-text {
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 0.6rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      opacity: 0.7;
+    .gallery__ph-plus {
+      font-size: 2rem;
+      line-height: 1;
+      color: rgba(158,122,63,0.3);
     }
-
-    /* ═══════════════════════════════════════════════════════
-       5. CONTACT
-    ═══════════════════════════════════════════════════════ */
-    .contact {
-      padding: 120px 5%;
-      text-align: center;
-      background: var(--bg);
-    }
-
-    .contact__inner {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .contact__eyebrow {
+    .gallery__ph-text {
       font-family: 'Jost', sans-serif;
       font-weight: 200;
       font-size: 0.58rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
+      color: rgba(158,122,63,0.4);
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       CONTACT
+    ══════════════════════════════════════════════════════════ */
+    .contact {
+      padding: 100px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    /* Left column */
+    .contact__eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact__eyebrow::before {
+      content: '';
       display: block;
+      width: 28px;
+      height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
     }
 
     .contact__heading {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: clamp(2.6rem, 5vw, 4rem);
-      line-height: 1.08;
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      line-height: 1.0;
       color: var(--dark);
-      margin-bottom: 28px;
+      margin: 18px 0 28px;
     }
+    .contact__heading em { font-style: italic; color: var(--gold); }
 
-    .contact__heading em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .contact__body {
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      font-size: 0.95rem;
-      color: var(--muted);
-      line-height: 1.9;
-      margin-bottom: 56px;
-    }
-
+    /* Contact cards */
     .contact__cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .contact__card {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      padding: 28px 32px;
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .contact__card {
+      position: relative;
       border: 1px solid var(--border);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
       border-radius: 0;
-      background: transparent;
-      transition: border-color var(--t-fast), background var(--t-fast);
-      cursor: pointer;
-      text-align: left;
+      transition: border-color 0.3s ease;
     }
-
-    .contact__card:hover {
-      border-color: var(--gold);
-      background: rgba(160,120,64,0.04);
+    .contact__card:hover { border-color: var(--gold); }
+    .contact__card::after {
+      content: '→';
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Jost', sans-serif;
+      font-weight: 200;
+      color: var(--gold);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
+    .contact__card:hover::after { opacity: 1; }
 
     .contact__card-icon {
       font-size: 1.2rem;
-      margin-bottom: 14px;
       line-height: 1;
+      flex-shrink: 0;
     }
-
     .contact__card-label {
       font-family: 'Jost', sans-serif;
       font-weight: 200;
-      font-size: 0.56rem;
+      font-size: 0.58rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 6px;
+      color: var(--muted);
+      margin-bottom: 3px;
     }
-
     .contact__card-value {
       font-family: 'Jost', sans-serif;
       font-weight: 300;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: var(--dark);
-      letter-spacing: 0.02em;
     }
 
-    /* ═══════════════════════════════════════════════════════
-       6. FOOTER
-    ═══════════════════════════════════════════════════════ */
+    /* Right column image */
+    .contact__img-wrap {
+      position: relative;
+      align-self: center;
+    }
+    .contact__img-wrap img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      filter: saturate(0.75);
+      display: block;
+    }
+    .contact__img-frame {
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(158,122,63,0.2);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+
+    /* ══════════════════════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════════════════════ */
     .footer {
-      border-top: 1px solid rgba(160,120,64,0.35);
-      padding: 48px 5%;
-      text-align: center;
-      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 28px 60px;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      gap: 20px;
     }
-
-    .footer__logo img {
-      height: 28px;
-      width: auto;
-      filter: saturate(0.7) opacity(0.6);
-    }
-
+    .footer__logo img { height: 28px; }
+    .footer__tagline,
     .footer__copy {
       font-family: 'Jost', sans-serif;
       font-weight: 200;
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       color: var(--muted);
-      opacity: 0.75;
     }
 
-    /* ═══════════════════════════════════════════════════════
-       MOBILE
-    ═══════════════════════════════════════════════════════ */
+
+    /* ══════════════════════════════════════════════════════════
+       MOBILE  <768px
+    ══════════════════════════════════════════════════════════ */
     @media (max-width: 768px) {
+
       /* Nav */
+      .nav { padding: 16px 20px; }
       .nav__links { display: none; }
-      .nav { padding: 0 20px; }
 
       /* Hero */
-      .hero__heading { font-size: clamp(3.6rem, 14vw, 5.5rem); }
-      .hero__inner { padding: 0 20px; padding-top: 68px; }
+      .hero__content {
+        padding: 0 24px;
+        padding-top: 80px;
+      }
+      .hero__heading { font-size: 3rem; }
+      .hero__scroll   { left: 24px; bottom: 28px; }
+
+      /* Dividers */
+      .divider { margin: 0 20px; }
 
       /* About */
       .about {
         grid-template-columns: 1fr;
+        padding: 60px 20px;
+        gap: 48px;
       }
-      .about__left { padding: 72px 20px; }
-      .about__right { min-height: 320px; }
+      /* Image moves to bottom */
+      .about__left     { order: 1; }
+      .about__img-wrap { order: 2; }
+      .about__img-wrap img { aspect-ratio: 4 / 3; }
 
       /* Gallery */
-      .gallery { padding-top: 72px; }
-      .gallery__header { padding-bottom: 48px; }
+      .gallery { padding: 60px 20px; }
       .gallery__grid {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: 220px 220px 220px;
       }
-      .gallery__grid .gallery__item:nth-child(3) {
-        grid-column: span 2;
-      }
-      .gallery__grid .gallery__item:nth-child(4),
-      .gallery__grid .gallery__item:nth-child(5) {
-        /* keep as-is in 2-col */
-      }
-      .gallery__item--placeholder {
-        display: none;
+      .gallery__item--large {
+        grid-row: auto;
+        grid-column: 1 / -1;
       }
 
       /* Contact */
-      .contact { padding: 80px 20px; }
-      .contact__cards { grid-template-columns: 1fr; }
+      .contact {
+        grid-template-columns: 1fr;
+        padding: 60px 20px;
+        gap: 48px;
+      }
+      .contact__img-wrap { display: none; }
 
       /* Footer */
-      .footer { padding: 36px 20px; }
+      .footer {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 28px 20px;
+      }
     }
 
   </style>
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════
+
+  <!-- ──────────────────────────────────────────────────────
        NAV
-  ══════════════════════════════════════════ -->
+  ─────────────────────────────────────────────────────── -->
   <nav class="nav" id="nav">
-    <a class="nav__logo" href="#home">
-      <img src="logo.png.jpg" alt="Zeneco">
+    <a href="#home" class="nav__logo">
+      <img src="logo.png.jpg" alt="Meble Zeneco">
     </a>
     <ul class="nav__links">
       <li><a href="#about">O nas</a></li>
       <li><a href="#gallery">Realizacje</a></li>
-      <li><a href="#contact">Kontakt</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
     </ul>
   </nav>
 
-  <!-- ══════════════════════════════════════════
+
+  <!-- ──────────────────────────────────────────────────────
        HERO
-  ══════════════════════════════════════════ -->
+  ─────────────────────────────────────────────────────── -->
   <section class="hero" id="home">
-    <div class="hero__bg" id="heroBg"></div>
+
+    <img
+      class="hero__bg"
+      src="ImageDownloader_www.instagram.com_640410828_17857399278612524_8394483469457325232_n.jpg"
+      alt=""
+      aria-hidden="true"
+    >
     <div class="hero__overlay"></div>
 
-    <div class="hero__inner">
-      <div class="hero__text">
-        <p class="hero__eyebrow">Polska robota · Meble na zamówienie</p>
-        <h1 class="hero__heading">
-          <span>Meble,</span>
-          <span>które</span>
-          <span><em>zostają na</em></span>
-          <span>pokolenia.</span>
-        </h1>
-        <a href="#contact" class="hero__cta">Zapytaj o wycenę</a>
-      </div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">Meble na zamówienie · Polska robota</p>
+      <h1 class="hero__heading">
+        <span>Meble, które</span>
+        <span><em>zostają</em></span>
+        <span>na pokolenia.</span>
+      </h1>
+      <a href="#kontakt" class="hero__cta">Zapytaj o projekt →</a>
     </div>
 
-    <div class="hero__divider"></div>
+    <div class="hero__scroll">Przewiń</div>
 
-    <div class="hero__scroll">
-      <span>Przewiń</span>
-      <span>↓</span>
-    </div>
   </section>
+
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       ABOUT
-  ══════════════════════════════════════════ -->
+
+  <!-- ──────────────────────────────────────────────────────
+       O NAS
+  ─────────────────────────────────────────────────────── -->
   <section class="about" id="about">
+
+    <!-- Left: text -->
     <div class="about__left">
+
       <p class="about__eyebrow reveal">O nas</p>
-      <h2 class="about__heading reveal reveal-d1">Tworzymy meble,<br>które <em>trwają.</em></h2>
-      <p class="about__body reveal reveal-d2">
-        Sprzedaż mebli domowych i ogrodowych na zamówienie.
-        Produkowane własnoręcznie w Polsce z najwyższej jakości materiałów.
-      </p>
-      <div class="about__rule reveal reveal-d3"></div>
+
+      <h2 class="about__heading reveal reveal-d1">
+        Rzemiosło w <em>każdym</em> detalu.
+      </h2>
+
+      <div class="blurred-block reveal reveal-d2">
+        <p>Zeneco to rodzinna pracownia meblarska działająca w sercu Polski. Od ponad dekady tworzymy meble, które łączą tradycyjne rzemiosło z nowoczesnym designem. Każdy projekt zaczyna się od rozmowy z klientem i kończy na meblu, który służy przez lata.</p>
+        <span class="blurred-block__label">[Twój tekst tutaj]</span>
+      </div>
+
+      <div class="blurred-block reveal reveal-d2">
+        <p>Używamy wyłącznie certyfikowanych materiałów — litego drewna dębowego, jesionowego i orzechowego. Każda deska dobierana jest ręcznie pod względem słojów i barwy, by mebel był nie tylko trwały, ale i piękny.</p>
+        <span class="blurred-block__label">[Twój tekst tutaj]</span>
+      </div>
+
+      <div class="blurred-block reveal reveal-d2">
+        <p>Projekt, wycena i realizacja — wszystko w jednym miejscu. Skontaktuj się z nami, a wspólnie stworzymy mebel szyty na miarę Twojego domu.</p>
+        <span class="blurred-block__label">[Twój tekst tutaj]</span>
+      </div>
+
+      <div class="about__features reveal reveal-d3">
+        <div class="about__feature">
+          <div class="about__feature-title">Lite drewno</div>
+          <div class="about__feature-desc">Naturalne materiały z certyfikatami</div>
+        </div>
+        <div class="about__feature">
+          <div class="about__feature-title">Polska robota</div>
+          <div class="about__feature-desc">Produkcja własna w warsztacie</div>
+        </div>
+        <div class="about__feature">
+          <div class="about__feature-title">Na zamówienie</div>
+          <div class="about__feature-desc">Projekt szyty na miarę</div>
+        </div>
+        <div class="about__feature">
+          <div class="about__feature-title">Trwałość</div>
+          <div class="about__feature-desc">Meble na pokolenia</div>
+        </div>
+      </div>
+
     </div>
-    <div class="about__right reveal reveal-d1" style="background: var(--bg2);"></div>
+
+    <!-- Right: image -->
+    <div class="about__img-wrap reveal reveal-d2">
+      <img
+        src="ImageDownloader_www.instagram.com_639883346_17857405146612524_7334770461471856373_n.jpg"
+        alt="Realizacja Zeneco"
+      >
+    </div>
+
   </section>
+
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       GALLERY
-  ══════════════════════════════════════════ -->
+
+  <!-- ──────────────────────────────────────────────────────
+       REALIZACJE
+  ─────────────────────────────────────────────────────── -->
   <section class="gallery" id="gallery">
-    <div class="gallery__header">
-      <h2 class="gallery__heading reveal"><em>Nasze</em> realizacje</h2>
+
+    <div class="gallery__header reveal">
+      <h2 class="gallery__heading">Nasze <em>realizacje.</em></h2>
+      <span class="gallery__label">Galeria prac</span>
     </div>
 
     <div class="gallery__grid">
-      <!-- Row 1 -->
-      <div class="gallery__item reveal">
-        <img
-          src="ImageDownloader_www.instagram.com_639883346_17857405146612524_7334770461471856373_n.jpg"
-          alt="Realizacja 1"
-        >
-      </div>
-      <div class="gallery__item reveal reveal-d1">
+
+      <!-- Large cell: col 1, rows 1–2 -->
+      <div class="gallery__item gallery__item--large reveal">
         <img
           src="ImageDownloader_www.instagram.com_639806352_17857404990612524_5965927394717186544_n.jpg"
-          alt="Realizacja 2"
+          alt="Realizacja Zeneco"
+        >
+      </div>
+
+      <!-- Row 1, cols 2–3 -->
+      <div class="gallery__item reveal reveal-d1">
+        <img
+          src="ImageDownloader_www.instagram.com_639462184_17857091811612524_6434809984105121988_n.jpg"
+          alt="Realizacja Zeneco"
         >
       </div>
       <div class="gallery__item reveal reveal-d2">
         <img
-          src="ImageDownloader_www.instagram.com_610873387_17850592221612524_2363748685826660159_n.jpg"
-          alt="Realizacja 3"
+          src="ImageDownloader_www.instagram.com_611299226_17850625596612524_5913342378821753091_n.jpg"
+          alt="Realizacja Zeneco"
         >
       </div>
-      <!-- Row 2: placeholders -->
-      <div class="gallery__item gallery__item--placeholder reveal reveal-d1">
-        <span class="gallery__placeholder-text">więcej zdjęć wkrótce</span>
-      </div>
-      <div class="gallery__item gallery__item--placeholder reveal reveal-d2">
-        <span class="gallery__placeholder-text">więcej zdjęć wkrótce</span>
-      </div>
-      <div class="gallery__item gallery__item--placeholder reveal reveal-d3">
-        <span class="gallery__placeholder-text">więcej zdjęć wkrótce</span>
-      </div>
+
+
     </div>
+
   </section>
+
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════════
-       CONTACT
-  ══════════════════════════════════════════ -->
-  <section class="contact" id="contact">
-    <div class="contact__inner">
-      <span class="contact__eyebrow reveal">Skontaktuj się</span>
-      <h2 class="contact__heading reveal reveal-d1">Zapytaj o<br><em>swój</em> mebel.</h2>
-      <p class="contact__body reveal reveal-d2">
-        Chętnie odpowiemy na każde pytanie dotyczące zamówień,<br>
-        materiałów i terminów realizacji.
-      </p>
+
+  <!-- ──────────────────────────────────────────────────────
+       KONTAKT
+  ─────────────────────────────────────────────────────── -->
+  <section class="contact" id="kontakt">
+
+    <!-- Left: text + cards -->
+    <div class="contact__left">
+
+      <p class="contact__eyebrow reveal">Kontakt</p>
+
+      <h2 class="contact__heading reveal reveal-d1">
+        Zacznijmy <em>razem</em><br>projekt.
+      </h2>
+
+      <div class="blurred-block reveal reveal-d2">
+        <p>Masz pomysł na wymarzony mebel? Napisz do nas — odpowiemy w ciągu 24 godzin. Chętnie omówimy szczegóły projektu, wymiary, materiały i termin realizacji. Każde zamówienie traktujemy indywidualnie.</p>
+        <span class="blurred-block__label">[Twój tekst tutaj]</span>
+      </div>
+
       <div class="contact__cards reveal reveal-d3">
-        <a href="https://instagram.com/meble.zeneco" target="_blank" class="contact__card">
+
+        <a href="https://instagram.com/meble.zeneco" target="_blank" rel="noopener" class="contact__card">
           <span class="contact__card-icon">📷</span>
-          <span class="contact__card-label">Instagram</span>
-          <span class="contact__card-value">@meble.zeneco</span>
+          <div>
+            <div class="contact__card-label">Instagram</div>
+            <div class="contact__card-value">@meble.zeneco</div>
+          </div>
         </a>
+
         <a href="mailto:MAIL_PLACEHOLDER" class="contact__card">
           <span class="contact__card-icon">✉</span>
-          <span class="contact__card-label">E-mail</span>
-          <span class="contact__card-value">Wyślij wiadomość</span>
+          <div>
+            <div class="contact__card-label">E-mail</div>
+            <div class="contact__card-value">kontakt@zeneco.pl</div>
+          </div>
         </a>
+
       </div>
     </div>
+
+    <!-- Right: image with inset frame -->
+    <div class="contact__img-wrap reveal reveal-d2">
+      <img
+        src="ImageDownloader_www.instagram.com_610873387_17850592221612524_2363748685826660159_n.jpg"
+        alt="Meble Zeneco"
+      >
+      <div class="contact__img-frame"></div>
+    </div>
+
   </section>
 
-  <!-- ══════════════════════════════════════════
+
+  <!-- ──────────────────────────────────────────────────────
        FOOTER
-  ══════════════════════════════════════════ -->
+  ─────────────────────────────────────────────────────── -->
   <footer class="footer">
-    <div class="footer__logo">
-      <img src="logo.png.jpg" alt="Zeneco">
-    </div>
-    <p class="footer__copy">© 2025 Meble Zeneco · Polska, produkcja na zamówienie</p>
+    <a href="#home" class="footer__logo">
+      <img src="logo.png.jpg" alt="Meble Zeneco">
+    </a>
+    <span class="footer__tagline">Meble na zamówienie · Polska robota</span>
+    <span class="footer__copy">© 2025 Meble Zeneco</span>
   </footer>
 
-  <!-- ══════════════════════════════════════════
+
+  <!-- ──────────────────────────────────────────────────────
        SCRIPTS
-  ══════════════════════════════════════════ -->
+  ─────────────────────────────────────────────────────── -->
   <script>
-    // Nav: add .scrolled class on scroll
+    // Nav: add .scrolled when page is scrolled past 40px
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 24);
-    }, { passive: true });
-
-    // Hero parallax
-    const heroBg = document.getElementById('heroBg');
-    window.addEventListener('scroll', () => {
-      if (!heroBg) return;
-      const y = window.scrollY * 0.3;
-      heroBg.style.transform = `scale(1.05) translateY(${y}px)`;
+      nav.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
 
     // Scroll reveal via IntersectionObserver
-    const revealObserver = new IntersectionObserver(entries => {
+    const revealObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
+          revealObs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
   </script>
 
 </body>
